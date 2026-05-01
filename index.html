@@ -600,8 +600,12 @@
     .team-section { padding: 6rem var(--pad-x); }
     .team-header { margin-bottom: 3.5rem; }
 
-    .team-grid {
-      display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem;
+    /* Outer layout: Steven left | members right */
+    .team-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 1.1rem;
+      align-items: start;
     }
 
     .team-card {
@@ -611,10 +615,7 @@
     }
     .team-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
 
-    .team-card.leader {
-      grid-column: span 2; background: var(--navy);
-      display: grid; grid-template-rows: auto 1fr;
-    }
+    .team-card.leader { background: var(--navy); }
     .leader-photo { overflow: hidden; }
     .leader-photo img {
       width: 100%; aspect-ratio: 3/4;
@@ -627,20 +628,29 @@
     .leader-info .title { color: var(--gold); font-size: 0.78rem; font-weight: 500; margin-top: 0.2rem; }
     .leader-info p { color: rgba(255,255,255,0.5); font-size: 0.84rem; line-height: 1.65; margin-top: 0.9rem; }
 
-    .member-card { padding: 1.8rem 1.3rem; text-align: center; background: var(--white); height: 100%; }
+    /* Members grid: 3 per row, last two share bottom row equally */
+    .team-members {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.1rem;
+    }
+    .team-members .team-card:nth-child(-n+3) { grid-column: span 2; }
+    .team-members .team-card:nth-child(n+4)  { grid-column: span 3; }
+
+    .member-card { padding: 2rem 1.3rem; text-align: center; background: var(--white); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .member-avatar {
-      width: 60px; height: 60px; margin: 0 auto 0.9rem;
+      width: 68px; height: 68px; margin: 0 auto 1rem;
       background: var(--cream-2);
       border: 2px solid rgba(201,168,76,0.2);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; font-weight: 700; color: var(--gold-3);
+      font-size: 1.3rem; font-weight: 700; color: var(--gold-3);
       transition: all 0.3s;
     }
     .team-card:hover .member-avatar { background: var(--navy); color: var(--gold); border-color: var(--gold); }
-    .member-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
-    .member-card .role { font-size: 0.76rem; color: var(--light); margin-top: 0.2rem; }
+    .member-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); }
+    .member-card .role { font-size: 0.78rem; color: var(--light); margin-top: 0.25rem; }
 
     /* ========================  CONTACT  ======================== */
     .contact-cta {
@@ -769,13 +779,9 @@
       .contact-cta { grid-template-columns: 1fr; gap: 3rem; }
 
       /* Team */
-      .team-grid { grid-template-columns: repeat(3, 1fr); }
-      .team-card.leader {
-        grid-column: span 3;
-        grid-template-rows: none;
-        grid-template-columns: 220px 1fr;
-      }
-      .leader-photo img { aspect-ratio: auto; height: 100%; }
+      .team-layout { grid-template-columns: 220px 1fr; }
+      .team-members .team-card:nth-child(-n+3) { grid-column: span 2; }
+      .team-members .team-card:nth-child(n+4)  { grid-column: span 3; }
     }
 
     /* ========================
@@ -833,13 +839,9 @@
       .tcard { padding: 1.8rem; }
 
       /* Team */
-      .team-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .team-card.leader {
-        grid-column: span 2;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-      }
-      .leader-photo img { aspect-ratio: 4/3; height: auto; }
+      .team-layout { grid-template-columns: 1fr; }
+      .team-members { grid-template-columns: repeat(6, 1fr); }
+      .leader-photo img { aspect-ratio: 4/3; }
 
       /* Contact form */
       .form-row { grid-template-columns: 1fr; }
@@ -860,9 +862,8 @@
 
       .values-strip { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem var(--pad-x); }
 
-      .team-grid { grid-template-columns: 1fr; }
-      .team-card.leader { grid-column: span 1; }
-      .leader-photo img { aspect-ratio: 3/2; }
+      .team-members .team-card:nth-child(-n+3) { grid-column: span 3; }
+      .team-members .team-card:nth-child(n+4)  { grid-column: span 3; }
 
       .contact-form { padding: 1.4rem; }
       .form-group input,
@@ -1184,7 +1185,7 @@
       <span class="section-tag">The Team</span>
       <h2 class="section-title">The People Behind Every Closed Deal</h2>
     </div>
-    <div class="team-grid">
+    <div class="team-layout">
       <div class="team-card leader reveal">
         <div class="leader-photo">
           <img src="steven-moning.jpg" alt="Steven Moning" loading="lazy">
@@ -1195,11 +1196,13 @@
           <p>Leading the team with 18+ years of experience, a Master's in Information Systems, and a proven track record across REO, luxury, investor, and residential real estate throughout the DFW metroplex.</p>
         </div>
       </div>
-      <div class="team-card reveal d1"><div class="member-card"><div class="member-avatar">G</div><h4>Glenda</h4><div class="role">Executive Assistant</div></div></div>
-      <div class="team-card reveal d2"><div class="member-card"><div class="member-avatar">S</div><h4>Sonya</h4><div class="role">Sales Assistant</div></div></div>
-      <div class="team-card reveal d3"><div class="member-card"><div class="member-avatar">C</div><h4>Clyde</h4><div class="role">Data & Acquisition</div></div></div>
-      <div class="team-card reveal d4"><div class="member-card"><div class="member-avatar">CJ</div><h4>CJ</h4><div class="role">Social Media & Comms</div></div></div>
-      <div class="team-card reveal d5"><div class="member-card"><div class="member-avatar">Z</div><h4>Zahra</h4><div class="role">Web & WordPress</div></div></div>
+      <div class="team-members">
+        <div class="team-card reveal d1"><div class="member-card"><div class="member-avatar">G</div><h4>Glenda</h4><div class="role">Executive Assistant</div></div></div>
+        <div class="team-card reveal d2"><div class="member-card"><div class="member-avatar">S</div><h4>Sonya</h4><div class="role">Sales Assistant</div></div></div>
+        <div class="team-card reveal d3"><div class="member-card"><div class="member-avatar">C</div><h4>Clyde</h4><div class="role">Data & Acquisition</div></div></div>
+        <div class="team-card reveal d4"><div class="member-card"><div class="member-avatar">CJ</div><h4>CJ</h4><div class="role">Social Media & Comms</div></div></div>
+        <div class="team-card reveal d5"><div class="member-card"><div class="member-avatar">Z</div><h4>Zahra</h4><div class="role">Web & WordPress</div></div></div>
+      </div>
     </div>
   </section>
 
