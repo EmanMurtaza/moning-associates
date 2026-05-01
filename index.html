@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steven Moning | Moning & Associates — Premier DFW Real Estate</title>
+  <meta name="description" content="Steven Moning, eXp Realtor since 2006. Specializing in luxury, REO, investor properties, and residential sales across Dallas–Fort Worth.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ========================
+       RESET & VARS
+    ======================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-2: #E2C97E;
+      --gold-3: #A07830;
+      --navy: #0B1829;
+      --navy-2: #142236;
+      --navy-3: #1E3352;
+      --cream: #FAF6EF;
+      --cream-2: #F3EDE3;
+      --charcoal: #1C1C1C;
+      --slate: #4A5568;
+      --light: #8A94A6;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ========================
+       SCROLL ANIMATIONS
+    ======================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* Stagger delays */
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+    .d5 { transition-delay: 0.5s; }
+
+    /* ========================
+       NAV
+    ======================== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(11, 24, 41, 0.97);
+      backdrop-filter: blur(20px);
+      height: 68px;
+      box-shadow: 0 1px 0 rgba(201, 168, 76, 0.15);
+    }
+
+    .nav-logo {
+      display: flex; flex-direction: column;
+      text-decoration: none;
+    }
+    .nav-logo-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--gold);
+      line-height: 1.1; letter-spacing: 0.5px;
+    }
+    .nav-logo-sub {
+      font-size: 0.62rem; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 2.5px; text-transform: uppercase;
+    }
+
+    .nav-menu {
+      display: flex; align-items: center; gap: 0.5rem;
+      list-style: none;
+    }
+    .nav-menu a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      transition: all 0.25s;
+      letter-spacing: 0.3px;
+    }
+    .nav-menu a:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
+    .nav-menu .nav-btn {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 0.55rem 1.4rem;
+      font-weight: 600 !important;
+      margin-left: 0.5rem;
+    }
+    .nav-menu .nav-btn:hover {
+      background: var(--gold-2);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(201,168,76,0.35);
+    }
+
+    /* ========================
+       HERO
+    ======================== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      background: var(--navy);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 10rem 6% 6rem 8%;
+      position: relative; z-index: 2;
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute; right: -60px; top: 0; bottom: 0;
+      width: 120px;
+      background: var(--navy);
+      clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
+      z-index: 3;
+    }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 1.8rem;
+    }
+    .hero-eyebrow-line {
+      width: 36px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-eyebrow span {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 600; line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1.8rem;
+    }
+    .hero h1 .accent {
+      font-style: italic; color: var(--gold);
+      display: block;
+    }
+
+    .hero-desc {
+      color: rgba(255,255,255,0.6);
+      font-size: 1.05rem; line-height: 1.8;
+      max-width: 460px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-ctas {
+      display: flex; align-items: center; gap: 1.2rem;
+      margin-bottom: 4rem;
+    }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 1rem 2.2rem;
+      border-radius: 8px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: none; cursor: pointer;
+    }
+    .btn-gold:hover {
+      background: var(--gold-2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201,168,76,0.4);
+    }
+    .btn-gold .arrow {
+      width: 20px; height: 20px;
+      background: rgba(0,0,0,0.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      transition: transform 0.3s;
+    }
+    .btn-gold:hover .arrow { transform: translateX(3px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-trust {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .hero-trust-item {
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+    .hero-trust-item:not(:last-child)::after {
+      content: '';
+      position: absolute; right: -0.75rem; top: 20%; height: 60%;
+      width: 1px; background: rgba(255,255,255,0.1);
+    }
+    .trust-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 600;
+      color: var(--gold); line-height: 1;
+    }
+    .trust-label {
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.5px; margin-top: 2px;
+    }
+
+    /* Hero right - photo */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .hero-right::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(11,24,41,0.3) 0%,
+        transparent 40%
+      ), linear-gradient(
+        to top,
+        rgba(11,24,41,0.5) 0%,
+        transparent 40%
+      );
+    }
+
+    /* Name card overlay */
+    .hero-namecard {
+      position: absolute; bottom: 3rem; right: 3rem; z-index: 5;
+      background: rgba(11,24,41,0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      text-align: right;
+    }
+    .hero-namecard h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--white);
+    }
+    .hero-namecard p {
+      color: var(--gold); font-size: 0.8rem;
+      font-weight: 500; letter-spacing: 0.5px;
+      margin-top: 0.2rem;
+    }
+    .hero-namecard .since {
+      color: rgba(255,255,255,0.35); font-size: 0.72rem;
+      margin-top: 0.8rem; letter-spacing: 1px;
+    }
+
+    /* ========================
+       SCROLLING TICKER
+    ======================== */
+    .ticker {
+      background: var(--gold);
+      overflow: hidden;
+      padding: 0.75rem 0;
+    }
+    .ticker-track {
+      display: flex;
+      animation: ticker 25s linear infinite;
+      width: max-content;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0 2.5rem;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .ticker-dot {
+      width: 4px; height: 4px;
+      background: var(--navy-2);
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    /* ========================
+       SERVICES
+    ======================== */
+    .services {
+      padding: 7rem 8%;
+      background: var(--cream);
+    }
+
+    .section-header {
+      max-width: 640px;
+      margin-bottom: 4rem;
+    }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--gold-3);
+      letter-spacing: 2.5px; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-tag::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1.5px;
+      background: var(--gold);
+    }
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 600; line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .section-header p {
+      color: var(--slate);
+      font-size: 1rem; line-height: 1.8;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(0,0,0,0.06);
+      position: relative; overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 700;
+      color: rgba(201,168,76,0.12);
+      line-height: 1; margin-bottom: 1rem;
+      transition: color 0.3s;
+    }
+    .service-card:hover .service-num { color: rgba(201,168,76,0.2); }
+
+    .service-icon {
+      width: 48px; height: 48px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.4rem;
+      color: var(--gold);
+    }
+    .service-icon svg { width: 22px; height: 22px; }
+    .service-card.featured .service-icon { background: rgba(201,168,76,0.12); }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 0.8rem;
+    }
+    .service-card p {
+      font-size: 0.9rem; color: var(--slate);
+      line-height: 1.7;
+    }
+
+    /* Large feature card */
+    .service-card.featured {
+      grid-column: span 2;
+      background: var(--navy);
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2rem; align-items: center;
+    }
+    .service-card.featured .service-num { color: rgba(201,168,76,0.08); }
+    .service-card.featured h3 { color: var(--white); }
+    .service-card.featured p { color: rgba(255,255,255,0.55); }
+    .service-card.featured::before {
+      height: 0; width: 3px;
+      top: 0; bottom: 0; right: auto;
+      background: linear-gradient(180deg, var(--gold), var(--gold-2));
+    }
+    .service-card.featured:hover::before {
+      transform: scaleY(1); transform-origin: top;
+    }
+    .service-featured-badge {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 14px;
+      padding: 2rem 1.5rem;
+      min-width: 160px;
+    }
+    .sfb-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .sfb-label {
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 1px; margin-top: 0.4rem;
+    }
+
+    /* ========================
+       ABOUT / STEVEN
+    ======================== */
+    .about {
+      padding: 7rem 8%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-photo-wrap {
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      position: relative;
+    }
+    .about-photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+    }
+
+    /* Gold frame accent */
+    .about-frame {
+      position: absolute;
+      top: -20px; left: -20px; right: 20px; bottom: -20px;
+      border: 1.5px solid rgba(201,168,76,0.3);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+
+    .about-badge {
+      position: absolute; bottom: -2rem; right: -2rem;
+      background: var(--navy);
+      border: 1.5px solid rgba(201,168,76,0.25);
+      border-radius: 20px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      z-index: 5;
+    }
+    .about-badge-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .about-badge-txt {
+      font-size: 0.72rem; color: rgba(255,255,255,0.5);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    .about-content { padding-left: 2rem; }
+
+    .about-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 600; line-height: 1.1;
+      color: var(--navy); margin-bottom: 1.5rem;
+    }
+    .about-content h2 em { font-style: italic; color: var(--gold-3); }
+
+    .about-bio p {
+      font-size: 0.98rem; line-height: 1.85;
+      color: var(--slate);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-credentials {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.8rem; margin-top: 2rem;
+    }
+    .cred {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      padding: 1rem 1.1rem;
+      background: var(--cream);
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: border-color 0.3s;
+    }
+    .cred:hover { border-color: rgba(201,168,76,0.4); }
+    .cred-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: rgba(201,168,76,0.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-3);
+    }
+    .cred-icon svg { width: 17px; height: 17px; }
+    .cred strong { display: block; font-size: 0.85rem; color: var(--navy); }
+    .cred span { font-size: 0.78rem; color: var(--light); margin-top: 1px; }
+
+    .about-cta { margin-top: 2.5rem; }
+
+    /* ========================
+       PHILOSOPHY (DARK)
+    ======================== */
+    .philosophy {
+      background: var(--navy);
+      padding: 7rem 8%;
+      position: relative; overflow: hidden;
+    }
+    .philosophy::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .philosophy::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .philosophy-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem; align-items: center;
+      position: relative; z-index: 2;
+    }
+
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 600; line-height: 1.2;
+      color: var(--white);
+    }
+    .philosophy-quote em { font-style: italic; color: var(--gold); }
+    .philosophy-quote-attr {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .attr-line { width: 30px; height: 1px; background: var(--gold); }
+    .attr-text { font-size: 0.85rem; color: rgba(255,255,255,0.45); }
+
+    .philosophy-pillars {
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .pillar {
+      display: flex; gap: 1.5rem; align-items: flex-start;
+      padding: 1.8rem 2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      transition: all 0.35s;
+    }
+    .pillar:hover {
+      background: rgba(201,168,76,0.05);
+      border-color: rgba(201,168,76,0.2);
+      transform: translateX(6px);
+    }
+    .pillar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--gold); min-width: 2rem;
+      line-height: 1; padding-top: 0.1rem;
+    }
+    .pillar h4 {
+      font-size: 1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.4rem;
+    }
+    .pillar p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+    }
+
+    /* ========================
+       VALUES STRIP
+    ======================== */
+    .values-strip {
+      background: var(--gold);
+      padding: 3.5rem 8%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .value-item {
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .value-item:hover { transform: translateY(-4px); }
+    .value-icon {
+      width: 48px; height: 48px;
+      background: rgba(11,24,41,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 0.8rem;
+      color: var(--navy);
+    }
+    .value-icon svg { width: 22px; height: 22px; }
+    .value-item h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 0.3rem;
+    }
+    .value-item p {
+      font-size: 0.8rem; color: rgba(11,24,41,0.6); line-height: 1.5;
+    }
+
+    /* ========================
+       TESTIMONIALS
+    ======================== */
+    .testimonials {
+      padding: 7rem 8%;
+      background: var(--cream);
+    }
+
+    .testimonials-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tcard {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(0,0,0,0.06);
+      display: flex; flex-direction: column;
+      transition: all 0.3s;
+    }
+    .tcard:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+      transform: translateY(-4px);
+    }
+    .tcard:first-child {
+      grid-row: span 2;
+      background: var(--navy);
+    }
+    .tcard:first-child .quote-mark { color: rgba(201,168,76,0.2); }
+    .tcard:first-child blockquote { color: rgba(255,255,255,0.8); font-size: 1.05rem; }
+    .tcard:first-child .tauthor-name { color: var(--white); }
+    .tcard:first-child .tauthor-role { color: rgba(255,255,255,0.4); }
+
+    .quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; line-height: 1;
+      color: rgba(201,168,76,0.3);
+      margin-bottom: 0.5rem;
+    }
+    .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 1rem; }
+    .tcard blockquote {
+      font-size: 0.95rem; color: var(--slate);
+      line-height: 1.75; flex: 1;
+      font-style: italic;
+    }
+    .tauthor {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .tcard:first-child .tauthor { border-top-color: rgba(255,255,255,0.08); }
+    .tavatar {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-3));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--navy); flex-shrink: 0;
+    }
+    .tauthor-name { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
+    .tauthor-role { font-size: 0.78rem; color: var(--light); margin-top: 1px; }
+
+    /* ========================
+       TEAM
+    ======================== */
+    .team-section {
+      padding: 7rem 8%;
+    }
+
+    .team-section .section-header { max-width: 100%; display: flex; justify-content: space-between; align-items: flex-end; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.2rem;
+      margin-top: 4rem;
+    }
+
+    .team-card {
+      border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.35s;
+      cursor: default;
+    }
+    .team-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+
+    .team-card.leader {
+      grid-column: span 2;
+      background: var(--navy);
+      display: grid; grid-template-columns: 1fr;
+    }
+
+    .leader-photo {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .leader-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      transition: transform 0.5s ease;
+    }
+    .team-card.leader:hover .leader-photo img { transform: scale(1.04); }
+
+    .leader-info {
+      padding: 2rem;
+    }
+    .leader-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--white);
+    }
+    .leader-info .title { color: var(--gold); font-size: 0.8rem; font-weight: 500; margin-top: 0.2rem; letter-spacing: 0.5px; }
+    .leader-info p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem; line-height: 1.65;
+      margin-top: 1rem;
+    }
+
+    .member-card {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: var(--white);
+    }
+    .member-avatar {
+      width: 64px; height: 64px;
+      background: var(--cream-2);
+      border: 2px solid rgba(201,168,76,0.25);
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--gold-3);
+      transition: all 0.3s;
+    }
+    .team-card:hover .member-avatar {
+      background: var(--navy);
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+    .member-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); }
+    .member-card .role { font-size: 0.78rem; color: var(--light); margin-top: 0.2rem; }
+
+    /* ========================
+       CONTACT CTA
+    ======================== */
+    .contact-cta {
+      background: var(--navy);
+      padding: 7rem 8%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 30%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .contact-left { position: relative; z-index: 2; }
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 600; line-height: 1.1;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--gold); }
+    .contact-left p { color: rgba(255,255,255,0.55); font-size: 1rem; line-height: 1.8; margin-bottom: 2.5rem; }
+
+    .contact-info-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-info-item {
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .ci-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+    }
+    .ci-icon svg { width: 20px; height: 20px; }
+    .ci-label { font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase; }
+    .ci-value { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-top: 1px; }
+
+    .contact-right { position: relative; z-index: 2; }
+    .contact-form {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 3rem;
+    }
+    .form-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.5px; text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select option { background: var(--navy-2); }
+    .form-group textarea { resize: none; height: 100px; }
+    .form-submit {
+      width: 100%; margin-top: 0.5rem;
+      background: var(--gold);
+      border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      padding: 1rem;
+    }
+    .form-submit:hover { background: var(--gold-2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.4); }
+
+    /* ========================
+       FOOTER
+    ======================== */
+    footer {
+      background: #070F1A;
+      padding: 3rem 8%;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--gold);
+    }
+    .footer-logo span { color: rgba(255,255,255,0.4); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; display: block; margin-top: 2px; letter-spacing: 1px; }
+
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      color: rgba(255,255,255,0.4); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-social { display: flex; gap: 0.7rem; }
+    .fsoc {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      transition: all 0.3s;
+    }
+    .fsoc:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.2); }
+    .footer-lic { font-size: 0.78rem; color: rgba(255,255,255,0.2); }
+
+    /* ========================
+       RESPONSIVE
+    ======================== */
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 10rem 8% 4rem; }
+      .hero-left::after { display: none; }
+      .hero-right { height: 60vw; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card.featured { grid-column: span 2; }
+      .about { grid-template-columns: 1fr; gap: 4rem; }
+      .about-content { padding-left: 0; }
+      .philosophy-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .values-strip { grid-template-columns: repeat(2, 1fr); }
+      .contact-cta { grid-template-columns: 1fr; gap: 3rem; }
+      .team-grid { grid-template-columns: repeat(3, 1fr); }
+      .team-card.leader { grid-column: span 3; display: grid; grid-template-columns: 250px 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      nav .nav-menu { display: none; }
+      .hero h1 { font-size: 2.8rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .tcard:first-child { grid-row: span 1; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .team-card.leader { grid-column: span 2; grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 2rem; text-align: center; }
+      .about-credentials { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= NAV ======= -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-main">Moning & Associates</span>
+      <span class="nav-logo-sub">eXp Realty · DFW Premier</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About Steven</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact" class="nav-btn">Get a Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- ======= HERO ======= -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow reveal">
+        <span class="hero-eyebrow-line"></span>
+        <span>Dallas – Fort Worth Real Estate</span>
+      </div>
+      <h1 class="reveal d1">
+        Turning Your
+        <span class="accent">Dreams into</span>
+        Addresses.
+      </h1>
+      <p class="hero-desc reveal d2">
+        With nearly two decades of dedicated service, Steven Moning and his expert team transform your real estate vision into reality — guided by clarity, integrity, and results.
+      </p>
+      <div class="hero-ctas reveal d3">
+        <a href="#contact" class="btn-gold">
+          Start Your Journey
+          <span class="arrow">&#8594;</span>
+        </a>
+        <a href="#services" class="btn-ghost">View Services</a>
+      </div>
+      <div class="hero-trust reveal d4">
+        <div class="hero-trust-item">
+          <span class="trust-num">18+</span>
+          <span class="trust-label">Years Active</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="trust-num">500+</span>
+          <span class="trust-label">Deals Closed</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="trust-num">4.9</span>
+          <span class="trust-label">Client Rating</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="steven-moning.jpg" alt="Steven Moning — eXp Realtor">
+      <div class="hero-namecard">
+        <h3>Steven Moning</h3>
+        <p>eXp Realtor · CEO, Moning & Associates</p>
+        <div class="since">LICENSED SINCE 2006</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= TICKER ======= -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">REO Properties <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Luxury Homes <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Investor Portfolios <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Off-Market Deals <span class="ticker-dot"></span></span>
+      <span class="ticker-item">BPO Specialist <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Residential Sales <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Wholesaling <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Property Flipping <span class="ticker-dot"></span></span>
+      <span class="ticker-item">DFW Market Expert <span class="ticker-dot"></span></span>
+      <span class="ticker-item">REO Properties <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Luxury Homes <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Investor Portfolios <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Off-Market Deals <span class="ticker-dot"></span></span>
+      <span class="ticker-item">BPO Specialist <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Residential Sales <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Wholesaling <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Property Flipping <span class="ticker-dot"></span></span>
+      <span class="ticker-item">DFW Market Expert <span class="ticker-dot"></span></span>
+    </div>
+  </div>
+
+  <!-- ======= SERVICES ======= -->
+  <section class="services" id="services">
+    <div class="section-header reveal">
+      <span class="section-tag">What We Do</span>
+      <h2>Full-Spectrum Real<br>Estate Services</h2>
+      <p>From first-time buyers to seasoned investors, we bring expertise and white-glove service to every transaction.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card featured reveal">
+        <div>
+          <div class="service-num">01</div>
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <h3>REO & BPO Properties</h3>
+          <p>Steven's deep expertise in bank-owned and broker price opinion properties means you get access to deals most agents can't find. We navigate complex REO transactions with precision and speed.</p>
+        </div>
+        <div class="service-featured-badge">
+          <div class="sfb-num">18+</div>
+          <div class="sfb-label">Years of REO<br>Experience</div>
+        </div>
+      </div>
+      <div class="service-card reveal d1">
+        <div class="service-num">02</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Investor Services</h3>
+        <p>Flipping, wholesaling, and portfolio acquisition — we think like investors because we are investors.</p>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="service-num">03</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Luxury Properties</h3>
+        <p>Exclusive access to DFW's premier listings. Discretion, precision, and an elevated experience at every step.</p>
+      </div>
+      <div class="service-card reveal d1">
+        <div class="service-num">04</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Off-Market Deals</h3>
+        <p>Our network opens doors before they're on the MLS. First access to the best opportunities in the market.</p>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="service-num">05</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Residential Sales</h3>
+        <p>Selling your home? Our market knowledge and negotiation expertise ensure you walk away with maximum value.</p>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="service-num">06</div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+        <h3>Land Acquisition</h3>
+        <p>Raw land, development lots, and acreage — we help buyers and sellers navigate the unique complexities of land transactions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= ABOUT ======= -->
+  <section class="about" id="about">
+    <div class="about-visual reveal-left">
+      <div class="about-frame"></div>
+      <div class="about-photo-wrap">
+        <img src="steven-moning.jpg" alt="Steven Moning">
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-num">2006</div>
+        <div class="about-badge-txt">Licensed<br>Since</div>
+      </div>
+    </div>
+    <div class="about-content reveal-right">
+      <span class="section-tag">About Steven</span>
+      <h2>More Than a<br>Realtor — A<br><em>Trusted Advisor</em></h2>
+      <div class="about-bio">
+        <p>Steven Moning has been a dedicated real estate professional since 2006, bringing nearly two decades of hands-on market experience to every client engagement. Holding a <strong>Master's degree in Information Systems</strong>, he applies a data-driven, analytical mindset to real estate — an edge that consistently delivers superior results.</p>
+        <p>Based in the Dallas–Fort Worth metroplex, Steven specializes in REO properties, BPO valuations, investor acquisitions, luxury homes, and residential sales. His reputation is built not just on transactions closed, but on relationships built for life.</p>
+        <p>As CEO of Moning & Associates and an eXp Realty agent, Steven leads a talented team united by one goal: making your real estate experience exceptional.</p>
+      </div>
+      <div class="about-credentials">
+        <div class="cred">
+          <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div>
+            <strong>Master's in Information Systems</strong>
+            <span>Data-driven approach to real estate</span>
+          </div>
+        </div>
+        <div class="cred">
+          <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div>
+            <strong>eXp Realty Agent</strong>
+            <span>Global network, local expertise</span>
+          </div>
+        </div>
+        <div class="cred">
+          <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div>
+            <strong>REO & BPO Certified</strong>
+            <span>Bank-owned property specialist</span>
+          </div>
+        </div>
+        <div class="cred">
+          <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><line x1="8" y1="7" x2="8" y2="7"/><line x1="12" y1="7" x2="12" y2="7"/><line x1="16" y1="7" x2="16" y2="7"/></svg></div>
+          <div>
+            <strong>DFW Market Expert</strong>
+            <span>Deep local knowledge since 2006</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-cta">
+        <a href="tel:4695809228" class="btn-gold">Call 469-580-9228 <span class="arrow">&#8594;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= PHILOSOPHY ======= -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-inner">
+      <div class="reveal-left">
+        <div class="philosophy-quote">
+          "We don't just sell homes — we build <em>legacies</em>, one relationship at a time."
+        </div>
+        <div class="philosophy-quote-attr">
+          <span class="attr-line"></span>
+          <span class="attr-text">Steven Moning — CEO, Moning & Associates</span>
+        </div>
+      </div>
+      <div class="philosophy-pillars reveal-right">
+        <div class="pillar d1">
+          <div class="pillar-num">01</div>
+          <div>
+            <h4>Honor Over Ego</h4>
+            <p>Every recommendation we make puts your interest first — always. We check our egos at the door and focus entirely on your goals and long-term wellbeing.</p>
+          </div>
+        </div>
+        <div class="pillar d2">
+          <div class="pillar-num">02</div>
+          <div>
+            <h4>Conviction Over Convenience</h4>
+            <p>We tell you the truth — even when it's hard. Honest, direct guidance leads to better decisions and outcomes that hold up over time.</p>
+          </div>
+        </div>
+        <div class="pillar d3">
+          <div class="pillar-num">03</div>
+          <div>
+            <h4>Legacy Over Limelight</h4>
+            <p>Our measure of success isn't recognition — it's the lasting impact we have on our clients' financial futures and the memories made in the homes we help them find.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= VALUES STRIP ======= -->
+  <div class="values-strip">
+    <div class="value-item reveal d1">
+      <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <h4>Clarity</h4>
+      <p>No jargon. No confusion. Every step explained plainly.</p>
+    </div>
+    <div class="value-item reveal d2">
+      <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h4>Ethics</h4>
+      <p>We do what's right — even when no one is watching.</p>
+    </div>
+    <div class="value-item reveal d3">
+      <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+      <h4>Order</h4>
+      <p>Systematic precision so nothing slips through the cracks.</p>
+    </div>
+    <div class="value-item reveal d4">
+      <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h4>Transparency</h4>
+      <p>Open communication from first showing to closing day.</p>
+    </div>
+  </div>
+
+  <!-- ======= TESTIMONIALS ======= -->
+  <section class="testimonials">
+    <div class="testimonials-header">
+      <div class="section-header reveal" style="margin-bottom:0">
+        <span class="section-tag">Client Stories</span>
+        <h2>What Our Clients<br>Are Saying</h2>
+      </div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="tcard reveal">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>Steven made the entire homebuying journey feel effortless. His knowledge of the DFW market is unmatched — he knew exactly what we needed before we even asked. We couldn't have done this without him. He genuinely cares about his clients, not just the commission check.</blockquote>
+        <div class="tauthor">
+          <div class="tavatar">JR</div>
+          <div>
+            <div class="tauthor-name">James & Rachel</div>
+            <div class="tauthor-role">First-Time Homebuyers · Frisco, TX</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal d1">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>As an investor, speed and accuracy are everything. Steven's REO expertise has helped me close over a dozen deals without a single hiccup. He thinks like an investor, not just a broker.</blockquote>
+        <div class="tauthor">
+          <div class="tavatar">MT</div>
+          <div>
+            <div class="tauthor-name">Marcus T.</div>
+            <div class="tauthor-role">Real Estate Investor · Dallas, TX</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal d2">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>The transparency was absolutely refreshing. Steven kept us in the loop at every step and his negotiation skills saved us thousands on our luxury listing. Highly recommend.</blockquote>
+        <div class="tauthor">
+          <div class="tavatar">DL</div>
+          <div>
+            <div class="tauthor-name">David & Karen L.</div>
+            <div class="tauthor-role">Home Sellers · Plano, TX</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= TEAM ======= -->
+  <section class="team-section" id="team">
+    <div class="section-header reveal">
+      <div>
+        <span class="section-tag">The Team</span>
+        <h2>The People Behind<br>Every Closed Deal</h2>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card leader reveal">
+        <div class="leader-photo">
+          <img src="steven-moning.jpg" alt="Steven Moning">
+        </div>
+        <div class="leader-info">
+          <h3>Steven Moning</h3>
+          <div class="title">CEO · eXp Realtor · Licensed Since 2006</div>
+          <p>Leading the team with 18+ years of experience, a Master's in Information Systems, and a proven track record across REO, luxury, investor, and residential real estate throughout the DFW metroplex.</p>
+        </div>
+      </div>
+      <div class="team-card reveal d1">
+        <div class="member-card">
+          <div class="member-avatar">G</div>
+          <h4>Glenda</h4>
+          <div class="role">Executive Assistant</div>
+        </div>
+      </div>
+      <div class="team-card reveal d2">
+        <div class="member-card">
+          <div class="member-avatar">S</div>
+          <h4>Sonya</h4>
+          <div class="role">Sales Assistant</div>
+        </div>
+      </div>
+      <div class="team-card reveal d3">
+        <div class="member-card">
+          <div class="member-avatar">C</div>
+          <h4>Clyde</h4>
+          <div class="role">Data & Acquisition</div>
+        </div>
+      </div>
+      <div class="team-card reveal d4">
+        <div class="member-card">
+          <div class="member-avatar">CJ</div>
+          <h4>CJ</h4>
+          <div class="role">Social Media & Comms</div>
+        </div>
+      </div>
+      <div class="team-card reveal d5">
+        <div class="member-card">
+          <div class="member-avatar">Z</div>
+          <h4>Zahra</h4>
+          <div class="role">Web & WordPress</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CONTACT ======= -->
+  <section class="contact-cta" id="contact">
+    <div class="contact-left reveal-left">
+      <h2>Let's Start Your<br><em>Real Estate Journey</em><br>Today.</h2>
+      <p>Whether you're buying, selling, or investing — we're ready to bring clarity, strategy, and results to your real estate goals. Available Monday through Friday.</p>
+      <div class="contact-info-list">
+        <div class="contact-info-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.75A16 16 0 0 0 16 16.84l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div>
+            <div class="ci-label">Phone</div>
+            <div class="ci-value">469-580-9228</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value">steven.moning@exprealty.com</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="ci-label">Office Hours</div>
+            <div class="ci-value">Monday – Friday, 9:00 AM – 5:00 PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right reveal-right">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@email.com">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(xxx) xxx-xxxx">
+        </div>
+        <div class="form-group">
+          <label>I'm interested in</label>
+          <select>
+            <option>Buying a Home</option>
+            <option>Selling a Home</option>
+            <option>Investment Property</option>
+            <option>REO / Off-Market</option>
+            <option>Luxury Property</option>
+            <option>Land Acquisition</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your goals..."></textarea>
+        </div>
+        <button class="btn-gold form-submit">Send Message <span class="arrow">&#8594;</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        Moning & Associates
+        <span>eXp Realty · DFW Premier Real Estate</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="#" class="fsoc" title="Facebook">f</a>
+        <a href="#" class="fsoc" title="Instagram">ig</a>
+        <a href="#" class="fsoc" title="LinkedIn">in</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Moning & Associates. All Rights Reserved.</span>
+      <span class="footer-lic">Steven Moning · eXp Realty · 469-580-9228</span>
+    </div>
+  </footer>
+
+  <!-- ======= SCROLL ANIMATION JS ======= -->
+  <script>
+    // Navbar scroll effect
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+    nav.classList.add('scrolled'); // start scrolled on hero
+
+    // Intersection observer for reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Counter animation for trust numbers
+    function animateCounter(el, target, suffix = '') {
+      let start = 0;
+      const duration = 1800;
+      const step = timestamp => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(ease * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const raw = el.dataset.count;
+          const suffix = el.dataset.suffix || '';
+          animateCounter(el, parseFloat(raw), suffix);
+          counterObs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+  </script>
+</body>
+</html>
