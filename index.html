@@ -73,18 +73,23 @@
       box-shadow: 0 1px 0 rgba(201,168,76,0.12);
     }
 
-    .nav-logo { text-decoration: none; }
+    .nav-logo {
+      text-decoration: none;
+      display: flex; flex-direction: column;
+      gap: 3px;
+    }
     .nav-logo-main {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.1rem, 3vw, 1.45rem);
       font-weight: 600; color: var(--gold);
       line-height: 1.1; letter-spacing: 0.5px;
-      white-space: nowrap;
+      white-space: nowrap; display: block;
     }
     .nav-logo-sub {
-      font-size: 0.6rem; font-weight: 500;
-      color: rgba(255,255,255,0.4);
-      letter-spacing: 2px; text-transform: uppercase;
+      font-size: 0.62rem; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 2.5px; text-transform: uppercase;
+      display: block;
     }
 
     /* Desktop menu */
@@ -389,11 +394,11 @@
     .service-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 3rem; font-weight: 700;
-      color: rgba(201,168,76,0.35); line-height: 1;
+      color: var(--gold-3); line-height: 1;
       margin-bottom: 0.8rem;
       transition: color 0.3s;
     }
-    .service-card:hover .service-num { color: rgba(201,168,76,0.55); }
+    .service-card:hover .service-num { color: var(--gold); }
 
     .service-icon {
       width: 46px; height: 46px;
@@ -414,8 +419,8 @@
     .service-card.featured {
       background: var(--navy);
     }
-    .service-card.featured .service-num { color: rgba(201,168,76,0.3); }
-    .service-card.featured:hover .service-num { color: rgba(201,168,76,0.5); }
+    .service-card.featured .service-num { color: var(--gold-2); }
+    .service-card.featured:hover .service-num { color: var(--gold); }
     .service-card.featured h3 { color: var(--white); }
     .service-card.featured p  { color: rgba(255,255,255,0.6); }
     .service-card.featured .service-icon { background: rgba(201,168,76,0.15); }
