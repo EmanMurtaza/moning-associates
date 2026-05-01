@@ -360,12 +360,13 @@
 
     /* ========================  SERVICES  ======================== */
     .services { padding: 6rem var(--pad-x); background: var(--cream); }
-    .services-header { margin-bottom: 3.5rem; }
+    .services-header { margin-bottom: 2.5rem; }
 
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
+      align-items: stretch;
     }
 
     .service-card {
@@ -557,10 +558,11 @@
 
     /* ========================  TESTIMONIALS  ======================== */
     .testimonials { padding: 6rem var(--pad-x); background: var(--cream); }
-    .testimonials-header { margin-bottom: 3.5rem; }
+    .testimonials-header { margin-bottom: 2.5rem; }
 
     .testimonials-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+      align-items: stretch;
     }
 
     .tcard {
@@ -598,14 +600,14 @@
 
     /* ========================  TEAM  ======================== */
     .team-section { padding: 6rem var(--pad-x); }
-    .team-header { margin-bottom: 3.5rem; }
+    .team-header { margin-bottom: 2rem; }
 
     /* Outer layout: Steven left | members right */
     .team-layout {
       display: grid;
       grid-template-columns: 300px 1fr;
-      gap: 1.1rem;
-      align-items: start;
+      gap: 1.5rem;
+      align-items: stretch;
     }
 
     .team-card {
@@ -615,10 +617,10 @@
     }
     .team-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
 
-    .team-card.leader { background: var(--navy); }
-    .leader-photo { overflow: hidden; }
+    .team-card.leader { background: var(--navy); display: flex; flex-direction: column; height: 100%; }
+    .leader-photo { overflow: hidden; flex: 1; min-height: 280px; }
     .leader-photo img {
-      width: 100%; aspect-ratio: 3/4;
+      width: 100%; height: 100%;
       object-fit: cover; object-position: center top;
       transition: transform 0.5s ease;
     }
@@ -628,16 +630,18 @@
     .leader-info .title { color: var(--gold); font-size: 0.78rem; font-weight: 500; margin-top: 0.2rem; }
     .leader-info p { color: rgba(255,255,255,0.5); font-size: 0.84rem; line-height: 1.65; margin-top: 0.9rem; }
 
-    /* Members grid: 3 per row, last two share bottom row equally */
+    /* Members: flex wrap — last row auto-centers regardless of count */
     .team-members {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 1.1rem;
+      justify-content: center;
     }
-    .team-members .team-card:nth-child(-n+3) { grid-column: span 2; }
-    .team-members .team-card:nth-child(n+4)  { grid-column: span 3; }
+    .team-members .team-card {
+      flex: 0 0 calc(33.333% - 0.74rem);
+    }
 
-    .member-card { padding: 2rem 1.3rem; text-align: center; background: var(--white); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .member-card { padding: 2.2rem 1.3rem; text-align: center; background: var(--white); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1rem; }
     .member-avatar {
       width: 68px; height: 68px; margin: 0 auto 1rem;
       background: var(--cream-2);
@@ -780,8 +784,6 @@
 
       /* Team */
       .team-layout { grid-template-columns: 220px 1fr; }
-      .team-members .team-card:nth-child(-n+3) { grid-column: span 2; }
-      .team-members .team-card:nth-child(n+4)  { grid-column: span 3; }
     }
 
     /* ========================
@@ -840,8 +842,10 @@
 
       /* Team */
       .team-layout { grid-template-columns: 1fr; }
-      .team-members { grid-template-columns: repeat(6, 1fr); }
+      .team-members .team-card { flex: 0 0 calc(50% - 0.55rem); }
       .leader-photo img { aspect-ratio: 4/3; }
+      .about-badge { bottom: -0.5rem; right: 0.8rem; padding: 1.1rem 1rem; }
+      .about-badge-num { font-size: 2.2rem; }
 
       /* Contact form */
       .form-row { grid-template-columns: 1fr; }
@@ -862,14 +866,88 @@
 
       .values-strip { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem var(--pad-x); }
 
-      .team-members .team-card:nth-child(-n+3) { grid-column: span 3; }
-      .team-members .team-card:nth-child(n+4)  { grid-column: span 3; }
+      .team-members .team-card { flex: 0 0 100%; }
 
       .contact-form { padding: 1.4rem; }
       .form-group input,
       .form-group select,
       .form-group textarea { padding: 0.75rem 0.85rem; }
     }
+    /* ========================  ENHANCED ANIMATIONS  ======================== */
+
+    /* Button shine sweep on hover */
+    .btn-gold { position: relative; overflow: hidden; }
+    .btn-gold::before {
+      content: '';
+      position: absolute; top: 0; left: -120%;
+      width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      transform: skewX(-20deg);
+      pointer-events: none; z-index: 1;
+    }
+    .btn-gold > * { position: relative; z-index: 2; }
+    .btn-gold:hover::before { animation: btn-shine 0.65s ease forwards; }
+    @keyframes btn-shine { to { left: 160%; } }
+
+    /* Hero namecard gentle float */
+    @keyframes namecard-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-7px); }
+    }
+    .hero-namecard { animation: namecard-float 5s ease-in-out infinite; }
+
+    /* Service icon pulse on card hover */
+    @keyframes icon-pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.22); }
+    }
+    .service-card:hover .service-icon { animation: icon-pulse 0.45s ease; }
+
+    /* Pillar animated left accent bar */
+    .pillar { position: relative; overflow: hidden; }
+    .pillar::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--gold); border-radius: 0 2px 2px 0;
+      transform: scaleY(0); transition: transform 0.3s ease;
+      transform-origin: center;
+    }
+    .pillar:hover::before { transform: scaleY(1); }
+
+    /* Nav animated underline + scroll-spy active */
+    .nav-menu a:not(.nav-btn) { position: relative; }
+    .nav-menu a:not(.nav-btn)::after {
+      content: '';
+      position: absolute; bottom: 2px; left: 0.85rem; right: 0.85rem;
+      height: 1.5px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-menu a:not(.nav-btn):hover::after,
+    .nav-menu a.nav-active::after { transform: scaleX(1); }
+    .nav-menu a.nav-active { color: var(--gold) !important; }
+
+    /* Counter number pop-in */
+    @keyframes num-pop {
+      0%   { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .trust-num.counted, .about-badge-num.counted, .sfb-num.counted {
+      display: inline-block;
+      animation: num-pop 0.35s ease forwards;
+    }
+
+    /* Credential card slide on hover */
+    .cred { transition: border-color 0.3s, transform 0.25s; }
+    .cred:hover { transform: translateX(5px); }
+
+    /* Team member avatar scale on hover */
+    .team-card:hover .member-avatar { transform: scale(1.1); }
+
+    /* Value icon lift on hover */
+    .value-icon { transition: background 0.3s, transform 0.3s; }
+    .value-item:hover .value-icon { transform: translateY(-4px); background: rgba(11,24,41,0.18); }
+
   </style>
 </head>
 <body>
@@ -919,10 +997,10 @@
         Addresses.
       </h1>
       <p class="hero-desc reveal d2">
-        With nearly two decades of dedicated service, Steven Moning and his expert team transform your real estate vision into reality — guided by clarity, integrity, and results.
+        Steven Moning has spent 18+ years helping families, investors, and first-time buyers navigate the DFW market. No fluff, no runaround. Just straight talk and deals that actually close.
       </p>
       <div class="hero-ctas reveal d3">
-        <a href="#contact" class="btn-gold">Start Your Journey <span class="arrow">&#8594;</span></a>
+        <a href="#contact" class="btn-gold">Let's Get Started <span class="arrow">&#8594;</span></a>
         <a href="#services" class="btn-ghost">View Services</a>
       </div>
       <div class="hero-trust reveal d4">
@@ -978,8 +1056,8 @@
   <section class="services" id="services">
     <div class="services-header reveal">
       <span class="section-tag">What We Do</span>
-      <h2 class="section-title">Full-Spectrum Real<br>Estate Services</h2>
-      <p class="section-sub">From first-time buyers to seasoned investors, we bring expertise and white-glove service to every transaction.</p>
+      <h2 class="section-title">Real Estate Services<br>Done Right</h2>
+      <p class="section-sub">Whether you're buying your first home or building a portfolio, we bring real experience to every deal. Not just a license.</p>
     </div>
     <div class="services-grid">
       <div class="service-card featured reveal">
@@ -987,7 +1065,7 @@
           <div class="service-num">01</div>
           <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
           <h3>REO & BPO Properties</h3>
-          <p>Steven's deep expertise in bank-owned and broker price opinion properties means you get access to deals most agents can't find. We navigate complex REO transactions with precision and speed.</p>
+          <p>Steven's REO track record opens doors to bank-owned deals most agents never see. We've closed hundreds of them. Fast, clean, no drama.</p>
         </div>
         <div class="sfb">
           <div class="sfb-num">18+</div>
@@ -998,31 +1076,31 @@
         <div class="service-num">02</div>
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <h3>Investor Services</h3>
-        <p>Flipping, wholesaling, and portfolio acquisition — we think like investors because we are investors.</p>
+        <p>Flipping, wholesaling, portfolio acquisition. We think like investors because we are investors.</p>
       </div>
       <div class="service-card reveal d2">
         <div class="service-num">03</div>
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
         <h3>Luxury Properties</h3>
-        <p>Exclusive access to DFW's premier listings. Discretion, precision, and an elevated experience at every step.</p>
+        <p>Luxury homes in DFW require a different playbook. We know the market, the buyers, and how to handle high-value transactions with full discretion.</p>
       </div>
       <div class="service-card reveal d1">
         <div class="service-num">04</div>
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <h3>Off-Market Deals</h3>
-        <p>Our network opens doors before they're on the MLS. First access to the best opportunities in the market.</p>
+        <p>We see deals before the MLS does. If it's moving fast in DFW, chances are we already know about it. We'll get you in first.</p>
       </div>
       <div class="service-card reveal d2">
         <div class="service-num">05</div>
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <h3>Residential Sales</h3>
-        <p>Selling your home? Our market knowledge and negotiation expertise ensure you walk away with maximum value.</p>
+        <p>Selling? We know what your home is actually worth in today's DFW market. We'll go to bat to get every dollar of it.</p>
       </div>
       <div class="service-card reveal d3">
         <div class="service-num">06</div>
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
         <h3>Land Acquisition</h3>
-        <p>Raw land, development lots, and acreage — we help buyers and sellers navigate the unique complexities of land transactions.</p>
+        <p>Land deals have their own rules: zoning, timelines, development potential. We know how to read them and get the deal done right.</p>
       </div>
     </div>
   </section>
@@ -1041,11 +1119,11 @@
     </div>
     <div class="about-content reveal d2">
       <span class="section-tag">About Steven</span>
-      <h2>More Than a Realtor —<br>A <em>Trusted Advisor</em></h2>
+      <h2>More Than a Realtor.<br>A <em>Trusted Advisor.</em></h2>
       <div class="about-bio">
-        <p>Steven Moning has been a dedicated real estate professional since 2006, bringing nearly two decades of hands-on market experience to every client engagement. Holding a <strong>Master's degree in Information Systems</strong>, he applies a data-driven, analytical mindset to real estate — an edge that consistently delivers superior results.</p>
-        <p>Based in the Dallas–Fort Worth metroplex, Steven specializes in REO properties, BPO valuations, investor acquisitions, luxury homes, and residential sales. His reputation is built not just on transactions closed, but on relationships built for life.</p>
-        <p>As CEO of Moning & Associates and an eXp Realty agent, Steven leads a talented team united by one goal: making your real estate experience exceptional.</p>
+        <p>Steven Moning has been in DFW real estate since 2006. Nearly two decades of closed deals, market shifts, and hard-won insight. His <strong>Master's degree in Information Systems</strong> gives him an edge most agents don't have: he reads the data, then makes the call.</p>
+        <p>Across REO, investor, luxury, and residential deals throughout DFW, Steven has built a reputation that outlasts any single transaction. Clients come back, and they bring their friends.</p>
+        <p>As CEO of Moning & Associates, Steven leads a focused team built around one standard: every client gets their best outcome, every time.</p>
       </div>
       <div class="about-credentials">
         <div class="cred">
@@ -1076,7 +1154,7 @@
     <div class="philosophy-inner">
       <div class="reveal">
         <div class="philosophy-quote">
-          "We don't just sell homes — we build <em>legacies</em>, one relationship at a time."
+          "We don't just close deals. We help people find where they <em>belong</em> in DFW."
         </div>
         <div class="philosophy-attr">
           <span class="attr-line"></span>
@@ -1088,21 +1166,21 @@
           <div class="pillar-num">01</div>
           <div>
             <h4>Honor Over Ego</h4>
-            <p>Every recommendation we make puts your interest first — always. We check our egos at the door and focus entirely on your goals and long-term wellbeing.</p>
+            <p>Every recommendation we make is genuinely what's best for you, not what's easiest for us. Your interest comes first, always.</p>
           </div>
         </div>
         <div class="pillar">
           <div class="pillar-num">02</div>
           <div>
             <h4>Conviction Over Convenience</h4>
-            <p>We tell you the truth — even when it's hard. Honest, direct guidance leads to better decisions and outcomes that hold up over time.</p>
+            <p>We'll tell you when a deal isn't right, when the price is too high, or when to walk away. The truth now beats regret later.</p>
           </div>
         </div>
         <div class="pillar">
           <div class="pillar-num">03</div>
           <div>
             <h4>Legacy Over Limelight</h4>
-            <p>Our measure of success isn't recognition — it's the lasting impact we have on our clients' financial futures and the memories made in the homes we help them find.</p>
+            <p>We're not chasing awards. Our measure of success is simple: did our client get a great outcome? Are they better off? That's it.</p>
           </div>
         </div>
       </div>
@@ -1119,17 +1197,17 @@
     <div class="value-item reveal d2">
       <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <h4>Ethics</h4>
-      <p>We do what's right — even when no one is watching.</p>
+      <p>We do what's right, even when no one is watching.</p>
     </div>
     <div class="value-item reveal d3">
       <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
       <h4>Order</h4>
-      <p>Systematic precision so nothing slips through the cracks.</p>
+      <p>Every detail tracked. Every deadline met. Nothing left to chance.</p>
     </div>
     <div class="value-item reveal d4">
       <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       <h4>Transparency</h4>
-      <p>Open communication from first showing to closing day.</p>
+      <p>We keep you in the loop. No radio silence, no surprises.</p>
     </div>
   </div>
 
@@ -1193,7 +1271,7 @@
         <div class="leader-info">
           <h3>Steven Moning</h3>
           <div class="title">CEO · eXp Realtor · Licensed Since 2006</div>
-          <p>Leading the team with 18+ years of experience, a Master's in Information Systems, and a proven track record across REO, luxury, investor, and residential real estate throughout the DFW metroplex.</p>
+          <p>18+ years in DFW real estate. A Master's in Information Systems. Hundreds of deals closed. Steven doesn't just lead the team, he's in the field with you.</p>
         </div>
       </div>
       <div class="team-members">
@@ -1210,7 +1288,7 @@
   <section class="contact-cta" id="contact">
     <div class="contact-left reveal">
       <h2>Let's Start Your<br><em>Real Estate Journey</em><br>Today.</h2>
-      <p>Whether you're buying, selling, or investing — we're ready to bring clarity, strategy, and results to your real estate goals. Available Monday through Friday.</p>
+      <p>Buying, selling, or investing? Let's have a real conversation about what you're trying to accomplish. We're here Monday through Friday and always happy to talk.</p>
       <div class="contact-info-list">
         <div class="contact-info-item">
           <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.75A16 16 0 0 0 16 16.84l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
@@ -1308,6 +1386,65 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+    /* ---------- Animated counters ---------- */
+    function animateCounter(el, from, to, suffix, isFloat, duration) {
+      const decimals = isFloat ? (String(to).split('.')[1] || '').length : 0;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = from + (to - from) * eased;
+        el.textContent = (isFloat ? val.toFixed(decimals) : Math.floor(val)) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = to + suffix;
+      }
+      requestAnimationFrame(tick);
+    }
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting || e.target.dataset.counted) return;
+        e.target.dataset.counted = '1';
+        const raw = e.target.textContent.trim();
+        const match = raw.match(/^([\d.]+)(.*)$/);
+        if (!match) return;
+        const to = parseFloat(match[1]);
+        const suffix = match[2];
+        const isFloat = match[1].includes('.');
+        const from = to === 2006 ? 1995 : 0;
+        animateCounter(e.target, from, to, suffix, isFloat, 1200);
+        e.target.classList.add('counted');
+      });
+    }, { threshold: 0.7 });
+    document.querySelectorAll('.trust-num, .about-badge-num, .sfb-num').forEach(el => counterObs.observe(el));
+
+    /* ---------- Hero image subtle zoom on scroll ---------- */
+    const heroEl    = document.querySelector('.hero');
+    const heroImgEl = document.querySelector('.hero-right img');
+    if (heroEl && heroImgEl) {
+      window.addEventListener('scroll', () => {
+        const p = Math.min(window.scrollY / heroEl.offsetHeight, 1);
+        heroImgEl.style.transform = `scale(${1 + p * 0.06})`;
+      }, { passive: true });
+    }
+
+    /* ---------- Nav scroll spy ---------- */
+    const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+    const spyObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting)
+          navLinks.forEach(a => a.classList.toggle('nav-active', a.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { rootMargin: '-72px 0px -55% 0px', threshold: 0 });
+    document.querySelectorAll('section[id]').forEach(s => spyObs.observe(s));
+
+    /* ---------- Ticker pause on hover ---------- */
+    const tickerTrack = document.querySelector('.ticker-track');
+    if (tickerTrack) {
+      const wrap = tickerTrack.parentElement;
+      wrap.addEventListener('mouseenter', () => tickerTrack.style.animationPlayState = 'paused');
+      wrap.addEventListener('mouseleave', () => tickerTrack.style.animationPlayState = 'running');
+    }
   </script>
 </body>
 </html>
