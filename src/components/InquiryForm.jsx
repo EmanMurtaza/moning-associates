@@ -326,6 +326,22 @@ export default function InquiryForm({ config }) {
               />
             ))}
           </div>
+
+          {/* Required next to the phone field itself, not just at the bottom
+              of the form — that's where the 10DLC campaign review looks for it. */}
+          {section.heading === 'Your details' && (
+            <p className="text-white/35 text-xs leading-relaxed mt-6">
+              By providing a telephone number and submitting the form, you are
+              consenting to be contacted by SMS text message and agreeing to our
+              {' '}
+              <a href="/privacy" className="text-white/55 hover:text-gold underline underline-offset-2 transition-colors">
+                Privacy Policy
+              </a>
+              . Message frequency may vary. Message and data rates may apply.
+              Reply STOP to opt out of further messaging. Reply HELP for more
+              information.
+            </p>
+          )}
         </fieldset>
       ))}
 
@@ -370,18 +386,6 @@ export default function InquiryForm({ config }) {
           <a href="/terms" className="text-white/55 hover:text-gold underline underline-offset-2 transition-colors">
             Terms and Conditions
           </a>.
-        </p>
-
-        <p className="text-white/35 text-xs text-center mt-3 leading-relaxed">
-          By providing a telephone number and submitting the form, you are
-          consenting to be contacted by SMS text message and agreeing to our
-          {' '}
-          <a href="/privacy" className="text-white/55 hover:text-gold underline underline-offset-2 transition-colors">
-            Privacy Policy
-          </a>
-          . Message frequency may vary. Message and data rates may apply.
-          Reply STOP to opt out of further messaging. Reply HELP for more
-          information.
         </p>
       </div>
     </form>
