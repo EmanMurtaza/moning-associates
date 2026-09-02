@@ -327,8 +327,8 @@ export default function InquiryForm({ config }) {
             ))}
           </div>
 
-          {/* Required next to the phone field itself, not just at the bottom
-              of the form — that's where the 10DLC campaign review looks for it. */}
+          {/* Required near the top of the form, not just at the bottom —
+              that's where the 10DLC campaign review looks for it. */}
           {section.heading === 'Your details' && (
             <p className="text-white/35 text-xs leading-relaxed mt-6">
               By providing a telephone number and submitting the form, you are

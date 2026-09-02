@@ -73,6 +73,18 @@ export default function InquiryPage({ config }) {
                className="block text-white/70 text-sm mt-1 hover:text-gold transition-colors break-all">
               steven.moning@exprealty.com
             </a>
+
+            <p className="text-white/35 text-xs leading-relaxed mt-5">
+              By providing a telephone number and submitting the form, you are
+              consenting to be contacted by SMS text message and agreeing to our
+              {' '}
+              <a href="/privacy" className="text-white/55 hover:text-gold underline underline-offset-2 transition-colors">
+                Privacy Policy
+              </a>
+              . Message frequency may vary. Message and data rates may apply.
+              Reply STOP to opt out of further messaging. Reply HELP for more
+              information.
+            </p>
           </div>
         </div>
 
